@@ -1,19 +1,12 @@
 <?php
-$password_length = $_GET['length'];
-$password = generate_password($password_length);
-function generate_password($length)
-{
-    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=';
-    $password = '';
-    for ($i = 0; $i < $length; $i++) {
-        $password .= $chars[rand(0, strlen($chars) - 1)];
-    }
-    return $password;
+require_once 'functions.php';
+
+if (isset($_GET['length'])) {
+    $password_length = $_GET['length'];
+    $password = generate_password($password_length);
 }
 ?>
-
 <!DOCTYPE html>
-
 <html lang="it">
 
 <head>
@@ -30,14 +23,14 @@ function generate_password($length)
 <body>
     <section class="bg-success d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="container bg-light py-4">
-            <form method="GET" action="index.php">
-                <label for="length">Lunghezza della password:</label>
+            <form method="GET" action="index.php" class="d-flex justify-content-center">
+                <label for="length" class="px-3">Lunghezza della password:</label>
                 <input type="number" id="length" name="length" min="1" max="100">
                 <input type="submit" value="Genera Password">
             </form>
 
             <?php if (isset($password)) : ?>
-                <p>La tua password generata è: <?php echo $password; ?></p>
+                <p class="d-flex justify-content-center pt-3">La tua password generata è: <?php echo $password; ?></p>
             <?php endif; ?>
         </div>
     </section>
